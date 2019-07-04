@@ -4,6 +4,12 @@
   </a>
 </li>
 
+<li>
+  <a href="{{ base_url() }}user">
+    <i class="fa fa-address-book"></i> <span>User</span>
+  </a>
+</li>
+
 {{-- @if(ci()->session->login && getUserData()->level == 'u')
 <li>
   <a href="{{ base_url() }}nasabahtanyajawab">
