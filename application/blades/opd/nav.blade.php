@@ -1,0 +1,1 @@
+<li><a href="{{ base_url() }}opd"><i class="fa fa-home"></i> OPD</a></li>

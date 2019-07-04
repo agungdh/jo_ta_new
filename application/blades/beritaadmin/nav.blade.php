@@ -1,0 +1,1 @@
+<li><a href="{{ base_url() }}beritaadmin"><i class="fa fa-home"></i> Berita</a></li>
