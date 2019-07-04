@@ -76,10 +76,12 @@ class User extends CI_Controller {
 
 	public function ubah($id)
 	{
-		$karyawans = Karyawan_model::all();
+		$opds = Opd_model::all();
+		$kecamatans = Kecamatan_model::where('kabupaten_id', 1810)->get();
+
 		$user = User_model::find($id);
 
-		return blade('user.ubah', compact(['user', 'karyawans']));
+		return blade('user.ubah', compact(['user', 'opds', 'kecamatans']));
 	}
 
 	public function aksiubah($id)
@@ -89,13 +91,16 @@ class User extends CI_Controller {
 		$requestData = $this->input->post();
 		
 		$validator = validator()->make($requestData, [
-			'nik' => 'required',
+			'nama' => 'required',
+			'username' => 'required',
 			'level' => 'required',
 			'password' => 'confirmed',
+			'id_opd' => 'required_if:level,opopd',
+			'id_kecamatan' => 'required_if:level,opkec',
 		]);
 
-		if ($requestData['nik'] != $user->nik && User_model::where(['nik' => $requestData['nik']])->first()) {
-			$validator->errors()->add('nik', 'User sudah ada !!!');
+		if ($requestData['username'] != $user->username && User_model::where(['username' => $requestData['username']])->first()) {
+			$validator->errors()->add('username', 'Username sudah ada !!!');
 		}
 
 		if (count($validator->errors()) > 0) {
@@ -111,6 +116,9 @@ class User extends CI_Controller {
 		} else {
 			unset($requestData['password']);
 		}
+
+		$requestData['id_opd'] = $requestData['id_opd'] ?: null;
+		$requestData['id_kecamatan'] = $requestData['id_kecamatan'] ?: null;
 
 		User_model::where('id', $id)->update($requestData);
 		

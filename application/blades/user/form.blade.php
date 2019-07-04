@@ -11,8 +11,8 @@
 
 	if (ci()->session->flashdata('old') && ci()->session->flashdata('old')['nama']) {
 		$value = ci()->session->flashdata('old')['nama'];
-	} elseif (isset($karyawan) && $karyawan['nama']) {
-		$value = $karyawan['nama'];
+	} elseif (isset($user) && $user['nama']) {
+		$value = $user['nama'];
 	} else {
 		$value = '';
 	}
@@ -123,8 +123,8 @@
 
 	if (ci()->session->flashdata('old') && ci()->session->flashdata('old')['username']) {
 		$value = ci()->session->flashdata('old')['username'];
-	} elseif (isset($karyawan) && $karyawan['username']) {
-		$value = $karyawan['username'];
+	} elseif (isset($user) && $user['username']) {
+		$value = $user['username'];
 	} else {
 		$value = '';
 	}
@@ -176,6 +176,12 @@
 <script type="text/javascript">
 	$(function() {
 		hideAll();
+
+		if ($("#level").val() == 'opopd') {
+			$("#div_opd").show();
+		} else if ($("#level").val() == 'opkec') {
+			$("#div_kecamatan").show();
+		}
 	});
 </script>
 
