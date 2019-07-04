@@ -1,4 +1,11 @@
 <li>
+  <a href="{{ base_url() }}">
+    <i class="fa fa-address-book"></i> <span>Home</span>
+  </a>
+</li>
+
+@if(ci()->session->login)
+<li>
   <a href="{{ base_url() }}opd">
     <i class="fa fa-address-book"></i> <span>OPD</span>
   </a>
@@ -9,6 +16,13 @@
     <i class="fa fa-address-book"></i> <span>User</span>
   </a>
 </li>
+
+<li>
+  <a href="{{ base_url() }}usulan">
+    <i class="fa fa-address-book"></i> <span>Usulan</span>
+  </a>
+</li>
+@endif
 
 {{-- @if(ci()->session->login && getUserData()->level == 'u')
 <li>

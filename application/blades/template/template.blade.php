@@ -78,7 +78,7 @@ if(ci()->session->login) {
   </script>
 
 </head>
-<body class="hold-transition skin-blue-light fixed sidebar-mini">
+<body class="hold-transition skin-purple-light fixed sidebar-mini">
 <!-- Site wrapper -->
 <div class="wrapper">
 
@@ -115,8 +115,23 @@ if(ci()->session->login) {
                 <img src="{{base_url()}}assets/favicon/favicon.png" class="img-circle" alt="User Image">
 
                 <p>
-                    {{$userData->nama}}
                     <small>{{$userData->username}}</small>
+                     @switch($userData->level)
+                        @case('opopd')
+                          <td>Operator OPD ({{$userData->opd->opd}})</td>
+                          @break
+                    
+                        @case('opkab')
+                          <td>Operator Kabupaten</td>
+                          @break
+                    
+                        @case('opkec')
+                          <td>Operator Kecamatan ({{$userData->kecamatan->nama_kecamatan}})</td>
+                          @break
+                    
+                        @default
+                          @break
+                    @endswitch
                 </p>
               </li>
               <!-- Menu Footer-->
@@ -196,9 +211,9 @@ if(ci()->session->login) {
       <div class="modal-body">
         <form action="{{base_url()}}log/in" method="post">
           @php
-          if (ci()->session->flashdata('errors') && ci()->session->flashdata('errors')->has('username') && ci()->session->flashdata('loginError')) {
+          if (ci()->session->flashdata('loginErrors') && ci()->session->flashdata('loginErrors')->has('username') && ci()->session->flashdata('loginError')) {
             $class = 'form-group has-feedback has-error';
-            $message = ci()->session->flashdata('errors')->first('username');
+            $message = ci()->session->flashdata('loginErrors')->first('username');
           } else {
             $class = 'form-group has-feedback';
             $message = '';
@@ -206,15 +221,15 @@ if(ci()->session->login) {
           @endphp
           <div class="{{$class}}">
             <div data-toggle="tooltip" title="{{$message}}">
-              <input name="username" type="text" class="form-control" placeholder="Username" value="{{ci()->session->flashdata('old') && ci()->session->flashdata('loginError') ? ci()->session->flashdata('old')['username'] : ''}}">
+              <input name="username" type="text" class="form-control" placeholder="Username" value="{{ci()->session->flashdata('loginOld') && ci()->session->flashdata('loginError') ? ci()->session->flashdata('loginOld')['username'] : ''}}">
               <span class="glyphicon glyphicon-user form-control-feedback"></span>
             </div>
           </div>
 
           @php
-          if (ci()->session->flashdata('errors') && ci()->session->flashdata('errors')->has('password') && ci()->session->flashdata('loginError')) {
+          if (ci()->session->flashdata('loginErrors') && ci()->session->flashdata('loginErrors')->has('password') && ci()->session->flashdata('loginError')) {
             $class = 'form-group has-feedback has-error';
-            $message = ci()->session->flashdata('errors')->first('password');
+            $message = ci()->session->flashdata('loginErrors')->first('password');
           } else {
             $class = 'form-group has-feedback';
             $message = '';

@@ -3,7 +3,7 @@
 -- Host: localhost	Database: jo_ta
 -- ------------------------------------------------------
 -- Server version 	5.5.5-10.1.38-MariaDB
--- Date: Thu, 04 Jul 2019 04:26:45 +0200
+-- Date: Thu, 04 Jul 2019 07:54:04 +0200
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -197,7 +197,7 @@ CREATE TABLE `user` (
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 SET autocommit=0;
-INSERT INTO `user` VALUES (2,'opkab','$2y$10$Fcuk6eH24UXPkXD172QSqO5cnTUHWwY5XURPmvqaPpuFHp.lONaJi','opkab','Operator Kabupaten',NULL,NULL),(3,'opdinkes','$2y$10$9ymCEthdi73IcwWoy6e4reU0JW3jk0dW.2YRMPbjgYMyFgI0qXySy','opopd','Operator OPD',3,NULL),(4,'opambarawa','$2y$10$JbE/R0In4DjYu184Pca0nOWAKOkOxPGJV7AQc/1ewkkz3ZI0L9snu','opkec','Operator Ambarawa',NULL,'1810020');
+INSERT INTO `user` VALUES (2,'opkab','$2y$10$Fcuk6eH24UXPkXD172QSqO5cnTUHWwY5XURPmvqaPpuFHp.lONaJi','opkab','Nama OP KAB',NULL,NULL),(3,'opdinkes','$2y$10$9ymCEthdi73IcwWoy6e4reU0JW3jk0dW.2YRMPbjgYMyFgI0qXySy','opopd','Nama OP DPO DINKES',3,NULL),(4,'opambarawa','$2y$10$JbE/R0In4DjYu184Pca0nOWAKOkOxPGJV7AQc/1ewkkz3ZI0L9snu','opkec','Nama OP Kec Ambarawa',NULL,'1810020');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -215,9 +215,7 @@ CREATE TABLE `usulan` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `tanggal` date NOT NULL,
   `tahun` year(4) NOT NULL,
-  `kecamatan` varchar(191) NOT NULL,
-  `kelurahan` varchar(191) NOT NULL,
-  `rw` int(11) NOT NULL,
+  `id_kecamatan` varchar(7) NOT NULL,
   `id_opd` int(11) NOT NULL,
   `kegiatan` varchar(191) NOT NULL,
   `satuan` varchar(191) NOT NULL,
@@ -226,19 +224,26 @@ CREATE TABLE `usulan` (
   `sumber_dana` varchar(191) NOT NULL,
   `harga_satuan` int(11) NOT NULL,
   `jumlah` int(11) NOT NULL,
-  `id_user_kabupaten` int(11) NOT NULL,
-  `id_user_opd` int(11) NOT NULL,
+  `id_user_kabupaten` int(11) DEFAULT NULL,
+  `id_user_opd` int(11) DEFAULT NULL,
   `id_user_kecamatan` int(11) NOT NULL,
+  `id_user_tolak` int(11) DEFAULT NULL,
+  `level_tolak` enum('dpo','kab') DEFAULT NULL,
+  `alasan_tolak` varchar(191) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id_opd` (`id_opd`),
   KEY `id_user_kabupaten` (`id_user_kabupaten`),
   KEY `id_user_opd` (`id_user_opd`),
   KEY `id_user_kecamatan` (`id_user_kecamatan`),
+  KEY `id_kecamatan` (`id_kecamatan`),
+  KEY `id_user_tolak` (`id_user_tolak`),
   CONSTRAINT `usulan_ibfk_1` FOREIGN KEY (`id_opd`) REFERENCES `opd` (`id`),
   CONSTRAINT `usulan_ibfk_2` FOREIGN KEY (`id_user_kabupaten`) REFERENCES `user` (`id`),
   CONSTRAINT `usulan_ibfk_3` FOREIGN KEY (`id_user_opd`) REFERENCES `user` (`id`),
-  CONSTRAINT `usulan_ibfk_4` FOREIGN KEY (`id_user_kecamatan`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  CONSTRAINT `usulan_ibfk_4` FOREIGN KEY (`id_user_kecamatan`) REFERENCES `user` (`id`),
+  CONSTRAINT `usulan_ibfk_5` FOREIGN KEY (`id_kecamatan`) REFERENCES `kecamatan` (`id`),
+  CONSTRAINT `usulan_ibfk_6` FOREIGN KEY (`id_user_tolak`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -248,11 +253,12 @@ CREATE TABLE `usulan` (
 LOCK TABLES `usulan` WRITE;
 /*!40000 ALTER TABLE `usulan` DISABLE KEYS */;
 SET autocommit=0;
+INSERT INTO `usulan` VALUES (7,'2019-07-13','2019','1810020',3,'Vaksin anti ganteng','Botol','','Di Puskes Desa','',200000,30,NULL,NULL,4,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `usulan` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
 
--- Dumped table `usulan` with 0 row(s)
+-- Dumped table `usulan` with 1 row(s)
 --
 
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -264,4 +270,4 @@ COMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on: Thu, 04 Jul 2019 04:26:46 +0200
+-- Dump completed on: Thu, 04 Jul 2019 07:54:10 +0200
