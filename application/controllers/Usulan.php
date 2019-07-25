@@ -7,6 +7,7 @@ use Illuminate\Database\QueryException;
 use application\eloquents\Usulan as Usulan_model;
 use application\eloquents\Kecamatan as Kecamatan_model;
 use application\eloquents\Opd as Opd_model;
+use application\eloquents\Tracking as Tracking_model;
 
 class Usulan extends CI_Controller {
 	public function __construct()
@@ -140,6 +141,7 @@ class Usulan extends CI_Controller {
 	public function aksihapus($id)
 	{
 		try {
+			Tracking_model::where('id_usulan', $id)->delete();
 			Usulan_model::where('id', $id)->delete();
 		} catch (QueryException $exception) {
             $this->session->set_flashdata(

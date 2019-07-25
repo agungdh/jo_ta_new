@@ -199,4 +199,14 @@ function hapus(id) {
         });
     }
 </script>
+
+<script type="text/javascript">
+    function opVerify(id) {
+        if (!id) {
+            swal('ERROR !!!', 'Anda Tidak Dapat Memverifikasi Usulan Ini.', 'error');
+        } else {
+
+        }
+    }
+</script>
 @endsection
