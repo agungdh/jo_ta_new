@@ -3,7 +3,7 @@
 -- Host: localhost	Database: jo_ta
 -- ------------------------------------------------------
 -- Server version 	5.5.5-10.3.13-MariaDB-2
--- Date: Thu, 25 Jul 2019 23:17:38 +0700
+-- Date: Fri, 26 Jul 2019 00:00:42 +0700
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -28,14 +28,14 @@ CREATE TABLE `tracking` (
   `id_user` int(11) NOT NULL,
   `aksi` enum('a','d') NOT NULL,
   `waktu` datetime NOT NULL,
-  `user_level` enum('dpo','kab','kec') NOT NULL,
+  `user_level` enum('opkab','opopd','opkec') NOT NULL,
   `keterangan` text DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id_usulan` (`id_usulan`),
   KEY `id_user` (`id_user`),
   CONSTRAINT `tracking_ibfk_1` FOREIGN KEY (`id_usulan`) REFERENCES `usulan` (`id`),
   CONSTRAINT `tracking_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -45,12 +45,12 @@ CREATE TABLE `tracking` (
 LOCK TABLES `tracking` WRITE;
 /*!40000 ALTER TABLE `tracking` DISABLE KEYS */;
 SET autocommit=0;
-INSERT INTO `tracking` VALUES (4,9,4,'a','2019-07-25 23:11:18','kec','test'),(5,9,3,'d','2019-07-25 23:11:18','dpo','test 2'),(6,9,2,'a','2019-07-25 23:11:33','kab','asdfsaf');
+INSERT INTO `tracking` VALUES (10,11,4,'a','2019-07-25 23:52:26','opkec','');
 /*!40000 ALTER TABLE `tracking` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
 
--- Dumped table `tracking` with 3 row(s)
+-- Dumped table `tracking` with 1 row(s)
 --
 
 --
@@ -61,6 +61,7 @@ COMMIT;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `usulan` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_user` int(11) NOT NULL,
   `tanggal` date NOT NULL,
   `tahun` year(4) NOT NULL,
   `id_kecamatan` varchar(7) NOT NULL,
@@ -71,26 +72,14 @@ CREATE TABLE `usulan` (
   `sumber_dana` varchar(191) DEFAULT NULL,
   `harga_satuan` int(11) NOT NULL,
   `jumlah` int(11) NOT NULL,
-  `id_user_kabupaten` int(11) DEFAULT NULL,
-  `id_user_opd` int(11) DEFAULT NULL,
-  `id_user_kecamatan` int(11) NOT NULL,
-  `id_user_tolak` int(11) DEFAULT NULL,
-  `level_tolak` enum('dpo','kab') DEFAULT NULL,
-  `alasan_tolak` varchar(191) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id_opd` (`id_opd`),
-  KEY `id_user_kabupaten` (`id_user_kabupaten`),
-  KEY `id_user_opd` (`id_user_opd`),
-  KEY `id_user_kecamatan` (`id_user_kecamatan`),
   KEY `id_kecamatan` (`id_kecamatan`),
-  KEY `id_user_tolak` (`id_user_tolak`),
+  KEY `id_user` (`id_user`),
   CONSTRAINT `usulan_ibfk_1` FOREIGN KEY (`id_opd`) REFERENCES `opd` (`id`),
-  CONSTRAINT `usulan_ibfk_2` FOREIGN KEY (`id_user_kabupaten`) REFERENCES `user` (`id`),
-  CONSTRAINT `usulan_ibfk_3` FOREIGN KEY (`id_user_opd`) REFERENCES `user` (`id`),
-  CONSTRAINT `usulan_ibfk_4` FOREIGN KEY (`id_user_kecamatan`) REFERENCES `user` (`id`),
   CONSTRAINT `usulan_ibfk_5` FOREIGN KEY (`id_kecamatan`) REFERENCES `kecamatan` (`id`),
-  CONSTRAINT `usulan_ibfk_6` FOREIGN KEY (`id_user_tolak`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+  CONSTRAINT `usulan_ibfk_6` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -100,7 +89,7 @@ CREATE TABLE `usulan` (
 LOCK TABLES `usulan` WRITE;
 /*!40000 ALTER TABLE `usulan` DISABLE KEYS */;
 SET autocommit=0;
-INSERT INTO `usulan` VALUES (9,'2019-07-25','2019','1810020',3,'sfdgs dfgdfsg s','asfasfas','as dfsadf sadf a',NULL,124124124,2,NULL,NULL,4,NULL,NULL,NULL);
+INSERT INTO `usulan` VALUES (11,4,'2019-07-25','2019','1810020',3,'test','Kotak','test 123',NULL,233000,2);
 /*!40000 ALTER TABLE `usulan` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -161,7 +150,7 @@ CREATE TABLE `user` (
   KEY `id_kecamatan` (`id_kecamatan`),
   CONSTRAINT `user_ibfk_1` FOREIGN KEY (`id_opd`) REFERENCES `opd` (`id`),
   CONSTRAINT `user_ibfk_2` FOREIGN KEY (`id_kecamatan`) REFERENCES `kecamatan` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -171,12 +160,12 @@ CREATE TABLE `user` (
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 SET autocommit=0;
-INSERT INTO `user` VALUES (2,'opkab','$2y$10$Fcuk6eH24UXPkXD172QSqO5cnTUHWwY5XURPmvqaPpuFHp.lONaJi','opkab','Nama OP KAB',NULL,NULL),(3,'opdinkes','$2y$10$9ymCEthdi73IcwWoy6e4reU0JW3jk0dW.2YRMPbjgYMyFgI0qXySy','opopd','Nama OP OPD DINKES',3,NULL),(4,'opambarawa','$2y$10$JbE/R0In4DjYu184Pca0nOWAKOkOxPGJV7AQc/1ewkkz3ZI0L9snu','opkec','Nama OP Kec Ambarawa',NULL,'1810020');
+INSERT INTO `user` VALUES (2,'opkab','$2y$10$Fcuk6eH24UXPkXD172QSqO5cnTUHWwY5XURPmvqaPpuFHp.lONaJi','opkab','Nama OP KAB',NULL,NULL),(3,'opdinkes','$2y$10$9ymCEthdi73IcwWoy6e4reU0JW3jk0dW.2YRMPbjgYMyFgI0qXySy','opopd','Nama OP OPD DINKES',3,NULL),(4,'opambarawa','$2y$10$JbE/R0In4DjYu184Pca0nOWAKOkOxPGJV7AQc/1ewkkz3ZI0L9snu','opkec','Nama OP Kec Ambarawa',NULL,'1810020'),(7,'oppardasuka','$2y$10$g5igL7uYI/ZKWOH5bEdU.e4XXSTRf0i05YJ1BsLDEV.4wrXzvo7x6','opkec','Nama oppardasuka',NULL,'1810010');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
 
--- Dumped table `user` with 3 row(s)
+-- Dumped table `user` with 4 row(s)
 --
 
 --
@@ -306,4 +295,4 @@ COMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on: Thu, 25 Jul 2019 23:17:40 +0700
+-- Dump completed on: Fri, 26 Jul 2019 00:00:43 +0700

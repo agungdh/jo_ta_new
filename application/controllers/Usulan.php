@@ -25,9 +25,43 @@ class Usulan extends CI_Controller {
 		return blade('usulan.ajaxtracking', compact(['usulan', 'trackings']));
 	}
 
+	public function trtableusulan($id)
+	{
+		$usulan = Usulan_model::find($id);
+		
+		return blade('usulan.ajaxtrtableusulan', compact(['usulan']));
+	}
+
+	public function aksiverify()
+	{
+		$requestData = $this->input->post();
+		$requestData['user_level'] = getUserData()->level;
+		$requestData['id_user'] = getUserData()->id;
+		$requestData['waktu'] = date('Y-m-d H:i:s');
+		
+		Tracking_model::insert($requestData);
+		
+		$this->session->set_flashdata(
+			'alert',
+			[
+				'title' => 'Sukses',
+				'message' => 'Tambah Data Berhasil !!!',
+				'class' => 'success',
+			]
+		);
+
+		redirect(base_url('usulan'));
+	}
+
 	public function index()
 	{
-		$usulans = Usulan_model::with('opd', 'userOpd', 'userKecamatan', 'userKabupaten')->where('id_kecamatan', getUserData()->id_kecamatan)->get();
+		if(getUserData()->level == 'opkec') {
+			$usulans = Usulan_model::with('opd')->where('id_kecamatan', getUserData()->id_kecamatan)->get();
+        } elseif(getUserData()->level == 'opopd') {
+			$usulans = Usulan_model::with('opd')->where('id_opd', getUserData()->id_opd)->get();
+        } elseif(getUserData()->level == 'opkab') {
+			$usulans = Usulan_model::with('opd')->get();
+        }
 		
 		return blade('usulan.index', compact(['usulans']));
 	}
@@ -62,7 +96,7 @@ class Usulan extends CI_Controller {
 			redirect(base_url('usulan/tambah'));
 		}
 
-		$requestData['id_user_kecamatan'] = $this->session->userID;
+		$requestData['id_user'] = $this->session->userID;
 		$requestData['tanggal'] = helper()->parseTanggalIndo($requestData['tanggal']);
 		unset($requestData['total_biaya']);
 		$requestData['harga_satuan'] = str_replace('.', '', $requestData['harga_satuan']);
@@ -117,7 +151,6 @@ class Usulan extends CI_Controller {
 			redirect(base_url('usulan/ubah/' . $id));
 		}
 
-		$requestData['id_user_kecamatan'] = $this->session->userID;
 		$requestData['tanggal'] = helper()->parseTanggalIndo($requestData['tanggal']);
 		unset($requestData['total_biaya']);
 		$requestData['harga_satuan'] = str_replace('.', '', $requestData['harga_satuan']);

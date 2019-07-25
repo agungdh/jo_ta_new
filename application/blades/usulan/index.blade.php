@@ -94,6 +94,11 @@ Usulan
                                     $verifyCheckBtnClass = 'primary';
                                 }
                             }
+
+                            if ($item->rejected) {
+                                $verifyCheckID = false;
+                                $verifyCheckBtnClass = 'default';
+                            }
                             @endphp
 
                             <button type="button" class="btn btn-{{$verifyCheckBtnClass}} btn-sm" onclick="opVerify({{ $verifyCheckID }})"><i class="glyphicon glyphicon-check"></i> Verifikasi</button>
@@ -124,7 +129,7 @@ Usulan
         </div>
         <div class="modal-body">
 
-            <table class="table">
+            <table class="table table-bordered" style="width: 100%">
                 <thead>
                     <tr>
                         <th>No</th>
@@ -147,6 +152,70 @@ Usulan
       </div>
     </div>
 </div>
+
+<!-- Modal -->
+<form action="{{base_url()}}usulan/aksiverify" method="post" role="form">
+    <div class="modal fade" id="modalVerify" role="dialog">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Tracking Usulan</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="col-md-12">
+                    <table class="table table-bordered" style="width: 100%">
+                        <thead>
+                            <tr>
+                                <th>Tanggal</th>
+                                <th>Tahun</th>
+                                <th>Kecamatan</th>
+                                <th>OPD</th>
+                                <th>Kegiatan</th>
+                                <th>Jumlah</th>
+                                <th>Biaya</th>
+                                <th>Sumber Dana</th>
+                                <th>Lokasi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id="modalVerifyTrTableUsulan">
+                                
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group has-feedback">
+                        <label for="tanggal">Keterangan</label>
+                        <div>
+                            <select style="width: 100%" name="aksi" class="form-control select2" id="aksi" required>
+                                <option value="">Pilih Aksi</option>
+                                <option value="a">Terima</option>
+                                <option value="d">Tolak</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group has-feedback">
+                        <label for="tanggal">Keterangan</label>
+                        <div>
+                            <input type="text" name="keterangan" class="form-control" placeholder="Isi Keterangan" id="keterangan">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+              <button type="Submit" class="btn btn-success">Verifikasi</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+    </div>
+</form>
 @endsection
 
 @section('js')
@@ -205,7 +274,36 @@ function hapus(id) {
         if (!id) {
             swal('ERROR !!!', 'Anda Tidak Dapat Memverifikasi Usulan Ini.', 'error');
         } else {
+            $.ajax({
+              type: "GET",
+              url: `{{base_url()}}usulan/trtableusulan/${id}`,
+              data: {
+                
+              },
+              success: function(data, textStatus, xhr ) {
+                $("#modalVerifyTrTableUsulan").html(data);
 
+                $("#modalVerify").modal();
+              },
+              error: function(xhr, textStatus, errorThrown) {
+                console.table([
+                  {
+                    kolom: 'xhr',
+                    data: xhr
+                  },
+                  {
+                    kolom: 'textStatus',
+                    data: textStatus
+                  },
+                  {
+                    kolom: 'errorThrown',
+                    data: errorThrown
+                  }
+                ]);
+
+                swal('ERROR !!!', 'See console !!!', 'error');
+              }
+            });
         }
     }
 </script>

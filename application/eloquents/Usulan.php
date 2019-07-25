@@ -16,19 +16,19 @@ class Usulan extends Eloquent {
     }
 
     public function done(){
-        return $this->hasOne('application\eloquents\Tracking', 'id_usulan')->where(['user_level' => 'kab']);
+        return $this->hasOne('application\eloquents\Tracking', 'id_usulan')->where(['user_level' => 'opkab']);
     }
 
     public function verifikasiKecamatan(){
-        return $this->hasOne('application\eloquents\Tracking', 'id_usulan')->where(['user_level' => 'kec']);
+        return $this->hasOne('application\eloquents\Tracking', 'id_usulan')->where(['user_level' => 'opkec']);
     }
 
     public function verifikasiKabupaten(){
-        return $this->hasOne('application\eloquents\Tracking', 'id_usulan')->where(['user_level' => 'kab']);
+        return $this->hasOne('application\eloquents\Tracking', 'id_usulan')->where(['user_level' => 'opkab']);
     }
 
     public function verifikasiOPD(){
-        return $this->hasOne('application\eloquents\Tracking', 'id_usulan')->where(['user_level' => 'opd']);
+        return $this->hasOne('application\eloquents\Tracking', 'id_usulan')->where(['user_level' => 'opopd']);
     }
 
     public function rejected(){
