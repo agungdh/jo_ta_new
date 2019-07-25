@@ -10,6 +10,30 @@ class Usulan extends Eloquent {
     public function opd(){
     	return $this->belongsTo('application\eloquents\Opd', 'id_opd');
     }
+   
+    public function trackings(){
+        return $this->hasMany('application\eloquents\Tracking', 'id_usulan');
+    }
+
+    public function done(){
+        return $this->hasOne('application\eloquents\Tracking', 'id_usulan')->where(['user_level' => 'kab']);
+    }
+
+    public function verifikasiKecamatan(){
+        return $this->hasOne('application\eloquents\Tracking', 'id_usulan')->where(['user_level' => 'kec']);
+    }
+
+    public function verifikasiKabupaten(){
+        return $this->hasOne('application\eloquents\Tracking', 'id_usulan')->where(['user_level' => 'kab']);
+    }
+
+    public function verifikasiOPD(){
+        return $this->hasOne('application\eloquents\Tracking', 'id_usulan')->where(['user_level' => 'opd']);
+    }
+
+    public function rejected(){
+        return $this->hasOne('application\eloquents\Tracking', 'id_usulan')->where(['aksi' => 'd']);
+    }
 
     public function kecamatan(){
     	return $this->belongsTo('application\eloquents\Kecamatan', 'id_kecamatan');

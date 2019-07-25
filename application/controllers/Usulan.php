@@ -16,6 +16,14 @@ class Usulan extends CI_Controller {
 		// helper()->auth(['a']);
 	}
 
+	public function trace($id)
+	{
+		$usulan = Usulan_model::find($id);
+		$trackings = $usulan->trackings;
+		
+		return blade('usulan.ajaxtracking', compact(['usulan', 'trackings']));
+	}
+
 	public function index()
 	{
 		$usulans = Usulan_model::with('opd', 'userOpd', 'userKecamatan', 'userKabupaten')->where('id_kecamatan', getUserData()->id_kecamatan)->get();

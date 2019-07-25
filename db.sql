@@ -2,8 +2,8 @@
 --
 -- Host: localhost	Database: jo_ta
 -- ------------------------------------------------------
--- Server version 	5.5.5-10.1.38-MariaDB
--- Date: Thu, 04 Jul 2019 07:54:04 +0200
+-- Server version 	5.5.5-10.3.13-MariaDB-2
+-- Date: Thu, 25 Jul 2019 23:17:38 +0700
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -15,6 +15,98 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `tracking`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tracking` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_usulan` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `aksi` enum('a','d') NOT NULL,
+  `waktu` datetime NOT NULL,
+  `user_level` enum('dpo','kab','kec') NOT NULL,
+  `keterangan` text DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_usulan` (`id_usulan`),
+  KEY `id_user` (`id_user`),
+  CONSTRAINT `tracking_ibfk_1` FOREIGN KEY (`id_usulan`) REFERENCES `usulan` (`id`),
+  CONSTRAINT `tracking_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tracking`
+--
+
+LOCK TABLES `tracking` WRITE;
+/*!40000 ALTER TABLE `tracking` DISABLE KEYS */;
+SET autocommit=0;
+INSERT INTO `tracking` VALUES (4,9,4,'a','2019-07-25 23:11:18','kec','test'),(5,9,3,'d','2019-07-25 23:11:18','dpo','test 2'),(6,9,2,'a','2019-07-25 23:11:33','kab','asdfsaf');
+/*!40000 ALTER TABLE `tracking` ENABLE KEYS */;
+UNLOCK TABLES;
+COMMIT;
+
+-- Dumped table `tracking` with 3 row(s)
+--
+
+--
+-- Table structure for table `usulan`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `usulan` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tanggal` date NOT NULL,
+  `tahun` year(4) NOT NULL,
+  `id_kecamatan` varchar(7) NOT NULL,
+  `id_opd` int(11) NOT NULL,
+  `kegiatan` varchar(191) NOT NULL,
+  `satuan` varchar(191) NOT NULL,
+  `lokasi` varchar(191) NOT NULL,
+  `sumber_dana` varchar(191) DEFAULT NULL,
+  `harga_satuan` int(11) NOT NULL,
+  `jumlah` int(11) NOT NULL,
+  `id_user_kabupaten` int(11) DEFAULT NULL,
+  `id_user_opd` int(11) DEFAULT NULL,
+  `id_user_kecamatan` int(11) NOT NULL,
+  `id_user_tolak` int(11) DEFAULT NULL,
+  `level_tolak` enum('dpo','kab') DEFAULT NULL,
+  `alasan_tolak` varchar(191) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_opd` (`id_opd`),
+  KEY `id_user_kabupaten` (`id_user_kabupaten`),
+  KEY `id_user_opd` (`id_user_opd`),
+  KEY `id_user_kecamatan` (`id_user_kecamatan`),
+  KEY `id_kecamatan` (`id_kecamatan`),
+  KEY `id_user_tolak` (`id_user_tolak`),
+  CONSTRAINT `usulan_ibfk_1` FOREIGN KEY (`id_opd`) REFERENCES `opd` (`id`),
+  CONSTRAINT `usulan_ibfk_2` FOREIGN KEY (`id_user_kabupaten`) REFERENCES `user` (`id`),
+  CONSTRAINT `usulan_ibfk_3` FOREIGN KEY (`id_user_opd`) REFERENCES `user` (`id`),
+  CONSTRAINT `usulan_ibfk_4` FOREIGN KEY (`id_user_kecamatan`) REFERENCES `user` (`id`),
+  CONSTRAINT `usulan_ibfk_5` FOREIGN KEY (`id_kecamatan`) REFERENCES `kecamatan` (`id`),
+  CONSTRAINT `usulan_ibfk_6` FOREIGN KEY (`id_user_tolak`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `usulan`
+--
+
+LOCK TABLES `usulan` WRITE;
+/*!40000 ALTER TABLE `usulan` DISABLE KEYS */;
+SET autocommit=0;
+INSERT INTO `usulan` VALUES (9,'2019-07-25','2019','1810020',3,'sfdgs dfgdfsg s','asfasfas','as dfsadf sadf a',NULL,124124124,2,NULL,NULL,4,NULL,NULL,NULL);
+/*!40000 ALTER TABLE `usulan` ENABLE KEYS */;
+UNLOCK TABLES;
+COMMIT;
+
+-- Dumped table `usulan` with 1 row(s)
+--
 
 --
 -- Table structure for table `desa`
@@ -47,6 +139,72 @@ UNLOCK TABLES;
 COMMIT;
 
 -- Dumped table `desa` with 74950 row(s)
+--
+
+--
+-- Table structure for table `user`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(191) NOT NULL,
+  `password` varchar(191) NOT NULL,
+  `level` enum('opkab','opopd','opkec') NOT NULL,
+  `nama` varchar(191) NOT NULL,
+  `id_opd` int(11) DEFAULT NULL,
+  `id_kecamatan` varchar(7) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`),
+  KEY `id_opd` (`id_opd`),
+  KEY `id_kecamatan` (`id_kecamatan`),
+  CONSTRAINT `user_ibfk_1` FOREIGN KEY (`id_opd`) REFERENCES `opd` (`id`),
+  CONSTRAINT `user_ibfk_2` FOREIGN KEY (`id_kecamatan`) REFERENCES `kecamatan` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user`
+--
+
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+SET autocommit=0;
+INSERT INTO `user` VALUES (2,'opkab','$2y$10$Fcuk6eH24UXPkXD172QSqO5cnTUHWwY5XURPmvqaPpuFHp.lONaJi','opkab','Nama OP KAB',NULL,NULL),(3,'opdinkes','$2y$10$9ymCEthdi73IcwWoy6e4reU0JW3jk0dW.2YRMPbjgYMyFgI0qXySy','opopd','Nama OP OPD DINKES',3,NULL),(4,'opambarawa','$2y$10$JbE/R0In4DjYu184Pca0nOWAKOkOxPGJV7AQc/1ewkkz3ZI0L9snu','opkec','Nama OP Kec Ambarawa',NULL,'1810020');
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK TABLES;
+COMMIT;
+
+-- Dumped table `user` with 3 row(s)
+--
+
+--
+-- Table structure for table `provinsi`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `provinsi` (
+  `id` varchar(2) NOT NULL,
+  `nama_provinsi` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `provinsi`
+--
+
+LOCK TABLES `provinsi` WRITE;
+/*!40000 ALTER TABLE `provinsi` DISABLE KEYS */;
+SET autocommit=0;
+INSERT INTO `provinsi` VALUES ('11','ACEH'),('12','SUMATERA UTARA'),('13','SUMATERA BARAT'),('14','RIAU'),('15','JAMBI'),('16','SUMATERA SELATAN'),('17','BENGKULU'),('18','LAMPUNG'),('19','KEPULAUAN BANGKA BELITUNG'),('21','KEPULAUAN RIAU'),('31','DKI JAKARTA'),('32','JAWA BARAT'),('33','JAWA TENGAH'),('34','DI YOGYAKARTA'),('35','JAWA TIMUR'),('36','BANTEN'),('51','BALI'),('52','NUSA TENGGARA BARAT'),('53','NUSA TENGGARA TIMUR'),('61','KALIMANTAN BARAT'),('62','KALIMANTAN TENGAH'),('63','KALIMANTAN SELATAN'),('64','KALIMANTAN TIMUR'),('65','KALIMANTAN UTARA'),('71','SULAWESI UTARA'),('72','SULAWESI TENGAH'),('73','SULAWESI SELATAN'),('74','SULAWESI TENGGARA'),('75','GORONTALO'),('76','SULAWESI BARAT'),('81','MALUKU'),('82','MALUKU UTARA'),('91','PAPUA BARAT'),('94','PAPUA'),('95','DKI JAKARTA RAYA');
+/*!40000 ALTER TABLE `provinsi` ENABLE KEYS */;
+UNLOCK TABLES;
+COMMIT;
+
+-- Dumped table `provinsi` with 35 row(s)
 --
 
 --
@@ -139,128 +297,6 @@ COMMIT;
 -- Dumped table `opd` with 2 row(s)
 --
 
---
--- Table structure for table `provinsi`
---
-
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `provinsi` (
-  `id` varchar(2) NOT NULL,
-  `nama_provinsi` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `provinsi`
---
-
-LOCK TABLES `provinsi` WRITE;
-/*!40000 ALTER TABLE `provinsi` DISABLE KEYS */;
-SET autocommit=0;
-INSERT INTO `provinsi` VALUES ('11','ACEH'),('12','SUMATERA UTARA'),('13','SUMATERA BARAT'),('14','RIAU'),('15','JAMBI'),('16','SUMATERA SELATAN'),('17','BENGKULU'),('18','LAMPUNG'),('19','KEPULAUAN BANGKA BELITUNG'),('21','KEPULAUAN RIAU'),('31','DKI JAKARTA'),('32','JAWA BARAT'),('33','JAWA TENGAH'),('34','DI YOGYAKARTA'),('35','JAWA TIMUR'),('36','BANTEN'),('51','BALI'),('52','NUSA TENGGARA BARAT'),('53','NUSA TENGGARA TIMUR'),('61','KALIMANTAN BARAT'),('62','KALIMANTAN TENGAH'),('63','KALIMANTAN SELATAN'),('64','KALIMANTAN TIMUR'),('65','KALIMANTAN UTARA'),('71','SULAWESI UTARA'),('72','SULAWESI TENGAH'),('73','SULAWESI SELATAN'),('74','SULAWESI TENGGARA'),('75','GORONTALO'),('76','SULAWESI BARAT'),('81','MALUKU'),('82','MALUKU UTARA'),('91','PAPUA BARAT'),('94','PAPUA'),('95','DKI JAKARTA RAYA');
-/*!40000 ALTER TABLE `provinsi` ENABLE KEYS */;
-UNLOCK TABLES;
-COMMIT;
-
--- Dumped table `provinsi` with 35 row(s)
---
-
---
--- Table structure for table `user`
---
-
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(191) NOT NULL,
-  `password` varchar(191) NOT NULL,
-  `level` enum('opkab','opopd','opkec') NOT NULL,
-  `nama` varchar(191) NOT NULL,
-  `id_opd` int(11) DEFAULT NULL,
-  `id_kecamatan` varchar(7) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `username` (`username`),
-  KEY `id_opd` (`id_opd`),
-  KEY `id_kecamatan` (`id_kecamatan`),
-  CONSTRAINT `user_ibfk_1` FOREIGN KEY (`id_opd`) REFERENCES `opd` (`id`),
-  CONSTRAINT `user_ibfk_2` FOREIGN KEY (`id_kecamatan`) REFERENCES `kecamatan` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `user`
---
-
-LOCK TABLES `user` WRITE;
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
-SET autocommit=0;
-INSERT INTO `user` VALUES (2,'opkab','$2y$10$Fcuk6eH24UXPkXD172QSqO5cnTUHWwY5XURPmvqaPpuFHp.lONaJi','opkab','Nama OP KAB',NULL,NULL),(3,'opdinkes','$2y$10$9ymCEthdi73IcwWoy6e4reU0JW3jk0dW.2YRMPbjgYMyFgI0qXySy','opopd','Nama OP DPO DINKES',3,NULL),(4,'opambarawa','$2y$10$JbE/R0In4DjYu184Pca0nOWAKOkOxPGJV7AQc/1ewkkz3ZI0L9snu','opkec','Nama OP Kec Ambarawa',NULL,'1810020');
-/*!40000 ALTER TABLE `user` ENABLE KEYS */;
-UNLOCK TABLES;
-COMMIT;
-
--- Dumped table `user` with 3 row(s)
---
-
---
--- Table structure for table `usulan`
---
-
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `usulan` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `tanggal` date NOT NULL,
-  `tahun` year(4) NOT NULL,
-  `id_kecamatan` varchar(7) NOT NULL,
-  `id_opd` int(11) NOT NULL,
-  `kegiatan` varchar(191) NOT NULL,
-  `satuan` varchar(191) NOT NULL,
-  `pagu` varchar(191) NOT NULL,
-  `lokasi` varchar(191) NOT NULL,
-  `sumber_dana` varchar(191) NOT NULL,
-  `harga_satuan` int(11) NOT NULL,
-  `jumlah` int(11) NOT NULL,
-  `id_user_kabupaten` int(11) DEFAULT NULL,
-  `id_user_opd` int(11) DEFAULT NULL,
-  `id_user_kecamatan` int(11) NOT NULL,
-  `id_user_tolak` int(11) DEFAULT NULL,
-  `level_tolak` enum('dpo','kab') DEFAULT NULL,
-  `alasan_tolak` varchar(191) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_opd` (`id_opd`),
-  KEY `id_user_kabupaten` (`id_user_kabupaten`),
-  KEY `id_user_opd` (`id_user_opd`),
-  KEY `id_user_kecamatan` (`id_user_kecamatan`),
-  KEY `id_kecamatan` (`id_kecamatan`),
-  KEY `id_user_tolak` (`id_user_tolak`),
-  CONSTRAINT `usulan_ibfk_1` FOREIGN KEY (`id_opd`) REFERENCES `opd` (`id`),
-  CONSTRAINT `usulan_ibfk_2` FOREIGN KEY (`id_user_kabupaten`) REFERENCES `user` (`id`),
-  CONSTRAINT `usulan_ibfk_3` FOREIGN KEY (`id_user_opd`) REFERENCES `user` (`id`),
-  CONSTRAINT `usulan_ibfk_4` FOREIGN KEY (`id_user_kecamatan`) REFERENCES `user` (`id`),
-  CONSTRAINT `usulan_ibfk_5` FOREIGN KEY (`id_kecamatan`) REFERENCES `kecamatan` (`id`),
-  CONSTRAINT `usulan_ibfk_6` FOREIGN KEY (`id_user_tolak`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `usulan`
---
-
-LOCK TABLES `usulan` WRITE;
-/*!40000 ALTER TABLE `usulan` DISABLE KEYS */;
-SET autocommit=0;
-INSERT INTO `usulan` VALUES (7,'2019-07-13','2019','1810020',3,'Vaksin anti ganteng','Botol','','Di Puskes Desa','',200000,30,NULL,NULL,4,NULL,NULL,NULL);
-/*!40000 ALTER TABLE `usulan` ENABLE KEYS */;
-UNLOCK TABLES;
-COMMIT;
-
--- Dumped table `usulan` with 1 row(s)
---
-
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
@@ -270,4 +306,4 @@ COMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on: Thu, 04 Jul 2019 07:54:10 +0200
+-- Dump completed on: Thu, 25 Jul 2019 23:17:40 +0700

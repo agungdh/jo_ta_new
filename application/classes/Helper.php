@@ -79,8 +79,8 @@ class Helper extends \agungdh\Pustaka
 			"driver"    => "mysql",
 			"host" => 'localhost',
 			"database" => 'jo_ta',
-			"username" => 'root',
-			"password" => '',
+			"username" => 'agungdh',
+			"password" => 'agungdh',
 		]);
 
 		$db->setAsGlobal();

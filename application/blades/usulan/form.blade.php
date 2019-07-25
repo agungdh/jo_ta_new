@@ -198,54 +198,6 @@
 	</div>
 
 	@php
-	if (ci()->session->flashdata('errors') && ci()->session->flashdata('errors')->has('pagu')) {
-		$class = 'form-group has-feedback has-error';
-		$message = ci()->session->flashdata('errors')->first('pagu');
-	} else {
-		$class = 'form-group has-feedback';
-		$message = '';
-	}
-
-	if (ci()->session->flashdata('old') && ci()->session->flashdata('old')['pagu']) {
-		$value = ci()->session->flashdata('old')['pagu'];
-	} elseif (isset($usulan) && $usulan['pagu']) {
-		$value = $usulan['pagu'];
-	} else {
-		$value = '';
-	}
-	@endphp
-	<div class="{{$class}}">
-		<label for="pagu" data-toggle="tooltip" title="{{$message}}">Pagu</label>
-		<div data-toggle="tooltip" title="{{$message}}">
-			<input type="text" name="pagu" class="form-control" placeholder="Isi pagu" id="Pagu" value="{{$value}}">
-		</div>
-	</div>
-
-	@php
-	if (ci()->session->flashdata('errors') && ci()->session->flashdata('errors')->has('sumber_dana')) {
-		$class = 'form-group has-feedback has-error';
-		$message = ci()->session->flashdata('errors')->first('sumber_dana');
-	} else {
-		$class = 'form-group has-feedback';
-		$message = '';
-	}
-
-	if (ci()->session->flashdata('old') && ci()->session->flashdata('old')['sumber_dana']) {
-		$value = ci()->session->flashdata('old')['sumber_dana'];
-	} elseif (isset($usulan) && $usulan['sumber_dana']) {
-		$value = $usulan['sumber_dana'];
-	} else {
-		$value = '';
-	}
-	@endphp
-	<div class="{{$class}}">
-		<label for="sumber_dana" data-toggle="tooltip" title="{{$message}}">Sumber Dana</label>
-		<div data-toggle="tooltip" title="{{$message}}">
-			<input type="text" name="sumber_dana" class="form-control" placeholder="Isi Sumber Dana" id="sumber_dana" value="{{$value}}">
-		</div>
-	</div>
-
-	@php
 	if (ci()->session->flashdata('errors') && ci()->session->flashdata('errors')->has('lokasi')) {
 		$class = 'form-group has-feedback has-error';
 		$message = ci()->session->flashdata('errors')->first('lokasi');
