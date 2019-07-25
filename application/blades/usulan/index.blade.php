@@ -9,6 +9,12 @@ Usulan
 @endsection
 
 @section('content')
+<style type="text/css">
+.easy-autocomplete{
+  width:100% !important
+}
+</style>
+
 <div class="row">
 	<div class="col-md-12">
 		<div class="box box-primary">
@@ -92,6 +98,8 @@ Usulan
                                 } else {
                                     $verifyCheckID = $item->id;
                                     $verifyCheckBtnClass = 'primary';
+
+                                    $verifyIsKab = true;
                                 }
                             }
 
@@ -101,7 +109,7 @@ Usulan
                             }
                             @endphp
 
-                            <button type="button" class="btn btn-{{$verifyCheckBtnClass}} btn-sm" onclick="opVerify({{ $verifyCheckID }})"><i class="glyphicon glyphicon-check"></i> Verifikasi</button>
+                            <button type="button" class="btn btn-{{$verifyCheckBtnClass}} btn-sm" onclick="opVerify({{ $verifyCheckID }}{{isset($verifyIsKab) && $verifyIsKab ? ', true' : null}})"><i class="glyphicon glyphicon-check"></i> Verifikasi</button>
 
                             <a class="btn btn-primary btn-sm" href="{{base_url()}}usulan/ubah/{{$item->id}}">
         	                  <i class="glyphicon glyphicon-pencil"></i> Ubah
@@ -200,9 +208,16 @@ Usulan
                     </div>
 
                     <div class="form-group has-feedback">
-                        <label for="tanggal">Keterangan</label>
+                        <label for="keterangan">Keterangan</label>
                         <div>
                             <input type="text" name="keterangan" class="form-control" placeholder="Isi Keterangan" id="keterangan">
+                        </div>
+                    </div>
+
+                    <div class="form-group has-feedback" id="div_sumber_dana">
+                        <label for="sumber_dana">Sumber Dana</label>
+                        <div>
+                            <input type="text" name="sumber_dana" class="form-control" placeholder="Isi Sumber Dana" id="sumber_dana">
                         </div>
                     </div>
                 </div>
@@ -270,7 +285,7 @@ function hapus(id) {
 </script>
 
 <script type="text/javascript">
-    function opVerify(id) {
+    function opVerify(id, opkab = false) {
         if (!id) {
             swal('ERROR !!!', 'Anda Tidak Dapat Memverifikasi Usulan Ini.', 'error');
         } else {
@@ -282,6 +297,12 @@ function hapus(id) {
               },
               success: function(data, textStatus, xhr ) {
                 $("#modalVerifyTrTableUsulan").html(data);
+
+                if (opkab) {
+                    $("#div_sumber_dana").show();
+                } else {
+                    $("#div_sumber_dana").hide();
+                }
 
                 $("#modalVerify").modal();
               },
@@ -306,5 +327,15 @@ function hapus(id) {
             });
         }
     }
+</script>
+
+<script type="text/javascript">
+$("#sumber_dana").easyAutocomplete({
+  url: function(phrase) {
+    return "{{base_url()}}usulan/ajaxSumberDana/" + phrase;
+  },
+  getValue: "name",
+  requestDelay: 200
+});
 </script>
 @endsection

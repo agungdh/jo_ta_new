@@ -3,7 +3,7 @@
 -- Host: localhost	Database: jo_ta
 -- ------------------------------------------------------
 -- Server version 	5.5.5-10.3.13-MariaDB-2
--- Date: Fri, 26 Jul 2019 00:00:42 +0700
+-- Date: Fri, 26 Jul 2019 00:21:22 +0700
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -35,7 +35,7 @@ CREATE TABLE `tracking` (
   KEY `id_user` (`id_user`),
   CONSTRAINT `tracking_ibfk_1` FOREIGN KEY (`id_usulan`) REFERENCES `usulan` (`id`),
   CONSTRAINT `tracking_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -45,12 +45,12 @@ CREATE TABLE `tracking` (
 LOCK TABLES `tracking` WRITE;
 /*!40000 ALTER TABLE `tracking` DISABLE KEYS */;
 SET autocommit=0;
-INSERT INTO `tracking` VALUES (10,11,4,'a','2019-07-25 23:52:26','opkec','');
+INSERT INTO `tracking` VALUES (16,11,4,'a','2019-07-26 00:10:26','opkec',''),(17,11,3,'a','2019-07-26 00:10:38','opopd',''),(19,11,2,'a','2019-07-26 00:20:36','opkab','sgdg'),(20,12,4,'a','2019-07-26 00:10:26','opkec',''),(21,12,3,'a','2019-07-26 00:10:38','opopd',''),(22,12,2,'d','2019-07-26 00:21:16','opkab','asf');
 /*!40000 ALTER TABLE `tracking` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
 
--- Dumped table `tracking` with 1 row(s)
+-- Dumped table `tracking` with 6 row(s)
 --
 
 --
@@ -79,7 +79,7 @@ CREATE TABLE `usulan` (
   CONSTRAINT `usulan_ibfk_1` FOREIGN KEY (`id_opd`) REFERENCES `opd` (`id`),
   CONSTRAINT `usulan_ibfk_5` FOREIGN KEY (`id_kecamatan`) REFERENCES `kecamatan` (`id`),
   CONSTRAINT `usulan_ibfk_6` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -89,12 +89,12 @@ CREATE TABLE `usulan` (
 LOCK TABLES `usulan` WRITE;
 /*!40000 ALTER TABLE `usulan` DISABLE KEYS */;
 SET autocommit=0;
-INSERT INTO `usulan` VALUES (11,4,'2019-07-25','2019','1810020',3,'test','Kotak','test 123',NULL,233000,2);
+INSERT INTO `usulan` VALUES (11,4,'2019-07-25','2019','1810020',3,'test','Kotak','test 123','Dana Kas',233000,2),(12,4,'2019-07-25','2019','1810020',3,'test','Kotak','test 123','Dana Kas',233000,2);
 /*!40000 ALTER TABLE `usulan` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
 
--- Dumped table `usulan` with 1 row(s)
+-- Dumped table `usulan` with 2 row(s)
 --
 
 --
@@ -295,4 +295,4 @@ COMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on: Fri, 26 Jul 2019 00:00:43 +0700
+-- Dump completed on: Fri, 26 Jul 2019 00:21:23 +0700

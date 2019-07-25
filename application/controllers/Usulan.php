@@ -17,6 +17,12 @@ class Usulan extends CI_Controller {
 		// helper()->auth(['a']);
 	}
 
+	public function ajaxSumberDana($phrase)
+	{
+		$datas = DB::select("SELECT DISTINCT(sumber_dana) name FROM usulan WHERE sumber_dana like ?", ["%" . $phrase . "%"]);
+		echo json_encode($datas);
+	}
+
 	public function trace($id)
 	{
 		$usulan = Usulan_model::find($id);
@@ -38,6 +44,12 @@ class Usulan extends CI_Controller {
 		$requestData['user_level'] = getUserData()->level;
 		$requestData['id_user'] = getUserData()->id;
 		$requestData['waktu'] = date('Y-m-d H:i:s');
+
+		if (getUserData()->level == 'opkab') {
+			Usulan_model::where('id', $requestData['id_usulan'])->update(['sumber_dana' => $requestData['sumber_dana']]);
+		}
+
+		unset($requestData['sumber_dana']);
 		
 		Tracking_model::insert($requestData);
 		
