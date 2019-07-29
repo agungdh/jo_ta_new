@@ -144,7 +144,7 @@ function hapus(id) {
     function trace(id) {
         $.ajax({
           type: "GET",
-          url: `{{base_url()}}usulan/trace/${id}`,
+          url: `{{base_url()}}welcome/trace/${id}`,
           data: {
             
           },
