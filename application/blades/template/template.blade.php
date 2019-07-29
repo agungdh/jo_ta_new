@@ -61,6 +61,16 @@ if(ci()->session->login) {
     }
   </style>
 
+  <style type="text/css">
+    .bgpsw { 
+     background: url("{{base_url()}}assets/selamat datang psw.jpg") no-repeat center center fixed; 
+     -webkit-background-size: cover;
+     -moz-background-size: cover;
+     -o-background-size: cover;
+     background-size: cover;
+    }
+  </style>
+
   @yield('css')
 
   <script type="text/javascript">
@@ -154,17 +164,18 @@ if(ci()->session->login) {
   </header>
 
   <!-- =============================================== -->
-
   <!-- Left side column. contains the sidebar -->
   <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar">
-      <!-- sidebar menu: : style can be found in sidebar.less -->
-      <ul class="sidebar-menu" data-widget="tree">
+    <div class="bgpsw">
+      <section class="sidebar" style="background-color: white; opacity: 0.85">
+        <!-- sidebar menu: : style can be found in sidebar.less -->
+        <ul class="sidebar-menu" data-widget="tree">
 
-        @include('template.menu')
+          @include('template.menu')
 
-      </ul>
+        </ul>
+    </div>
     </section>
     <!-- /.sidebar -->
   </aside>
@@ -172,7 +183,7 @@ if(ci()->session->login) {
   <!-- =============================================== -->
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+  <div class="content-wrapper bgpsw">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
@@ -184,7 +195,7 @@ if(ci()->session->login) {
     </section>
 
     <!-- Main content -->
-    <section class="content">
+    <section class="content" style="opacity: 0.85">
 
         @yield('content')
 
@@ -193,15 +204,19 @@ if(ci()->session->login) {
   </div>
   <!-- /.content-wrapper -->
 
-  <footer class="main-footer">
-    <strong>Copyright &copy; {{ date('Y') }} <a href="{{base_url()}}">JUDUL SHORT</a>.</strong> All rights
-    reserved.
-  </footer>
+  <div class="bgpsw">
+    <footer class="main-footer" style="opacity: 0.85">
+      <strong>Copyright &copy; {{ date('Y') }} <a href="{{base_url()}}">JUDUL SHORT</a>.</strong> All rights
+      reserved.
+    </footer>
+  </div>
 </div>
 <!-- ./wrapper -->
 
+@yield('modal')
+
 <!-- Modal -->
-<div class="modal fade" id="loginModal" role="dialog">
+<div class="modal fade" id="loginModal" role="dialog" style="opacity: 0.87">
   <div class="modal-dialog modal-xs">
     <div class="modal-content">
       <div class="modal-header">

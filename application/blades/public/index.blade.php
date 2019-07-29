@@ -86,8 +86,11 @@ Usulan
 	</div>
 </div>
 
+@endsection
+
+@section('modal')
 <!-- Modal -->
-<div class="modal fade" id="modalTracking" role="dialog">
+<div class="modal fade" id="modalTracking" role="dialog" style="opacity: 0.87">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">

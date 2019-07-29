@@ -127,8 +127,11 @@ Usulan
 	</div>
 </div>
 
+@endsection
+
+@section('modal')
 <!-- Modal -->
-<div class="modal fade" id="modalTracking" role="dialog">
+<div class="modal fade" id="modalTracking" role="dialog" style="opacity: 0.87">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
@@ -163,7 +166,7 @@ Usulan
 
 <!-- Modal -->
 <form action="{{base_url()}}usulan/aksiverify" method="post" role="form">
-    <div class="modal fade" id="modalVerify" role="dialog">
+    <div class="modal fade" id="modalVerify" role="dialog" style="opacity: 0.87">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-header">
