@@ -5,29 +5,31 @@
 </li>
 
 @if(ci()->session->login)
-<li>
-  <a href="{{ base_url() }}opd">
-    <i class="fa fa-address-book"></i> <span>OPD</span>
-  </a>
-</li>
+  @if(getUserData()->level == 'opkab')
+    <li>
+      <a href="{{ base_url() }}opd">
+        <i class="fa fa-address-book"></i> <span>OPD</span>
+      </a>
+    </li>
 
-<li>
-  <a href="{{ base_url() }}user">
-    <i class="fa fa-address-book"></i> <span>User</span>
-  </a>
-</li>
+    <li>
+      <a href="{{ base_url() }}user">
+        <i class="fa fa-address-book"></i> <span>User</span>
+      </a>
+    </li>
+  @endif
 
-<li>
-  <a href="{{ base_url() }}usulan">
-    <i class="fa fa-address-book"></i> <span>Usulan</span>
-  </a>
-</li>
+    <li>
+      <a href="{{ base_url() }}usulan">
+        <i class="fa fa-address-book"></i> <span>Usulan</span>
+      </a>
+    </li>
 
-<li>
-  <a href="{{ base_url() }}laporan">
-    <i class="fa fa-address-book"></i> <span>Laporan Tahunan</span>
-  </a>
-</li>
+    <li>
+      <a href="{{ base_url() }}laporan">
+        <i class="fa fa-address-book"></i> <span>Laporan Tahunan</span>
+      </a>
+    </li>
 @endif
 
 {{-- @if(ci()->session->login && getUserData()->level == 'u')
