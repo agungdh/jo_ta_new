@@ -11,7 +11,7 @@ class Opd extends CI_Controller {
 	{
 		parent::__construct();
 
-		// helper()->auth(['a']);
+		helper()->auth(['a']);
 	}
 
 	public function index()

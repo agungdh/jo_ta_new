@@ -10,6 +10,14 @@ use application\eloquents\Transaksi as Transaksi_model;
 class Helper extends \agungdh\Pustaka
 {
 
+	public static function auth($level) {
+		self::bootEloquent();
+
+		if (!ci()->session->login) {
+			redirect(base_url());
+		}
+	}
+
 	public static function belumBayar($bulan, $tahun)
 	{
 		$kendaraansID_raw = Kendaraan_model::select('id')->where('mulai_penagihan_bulan', '<=', $bulan)->where('mulai_penagihan_tahun', '<=', $tahun)->get();

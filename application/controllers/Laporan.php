@@ -8,6 +8,13 @@ use application\eloquents\Kecamatan as Kecamatan_model;
 use application\eloquents\Opd as Opd_model;
 
 class Laporan extends CI_Controller {
+	public function __construct()
+	{
+		parent::__construct();
+
+		helper()->auth(['a']);
+	}
+	
 	public function index()
 	{
 		return blade('laporan.index');
