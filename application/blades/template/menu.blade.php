@@ -22,6 +22,12 @@
     <i class="fa fa-address-book"></i> <span>Usulan</span>
   </a>
 </li>
+
+<li>
+  <a href="{{ base_url() }}laporan">
+    <i class="fa fa-address-book"></i> <span>Laporan Tahunan</span>
+  </a>
+</li>
 @endif
 
 {{-- @if(ci()->session->login && getUserData()->level == 'u')
