@@ -41,15 +41,28 @@ Usulan
                         <th>Kegiatan</th>
                         <th>Jumlah</th>
                         <th>Biaya</th>
-                        <th>Pagu</th>
                         <th>Sumber Dana</th>
                         <th>Lokasi</th>
                         <th>Verifikasi</th>
 	                </tr>
                 </thead>
                 <tbody>
-                	@foreach($usulans as $item)
-                	<tr>
+                    @foreach($usulans as $item)
+                    @php
+                    if ($item->rejected) {
+                        $ver = 'Ditolak';
+                        $clr = 'red';
+                    } else {
+                        if ($item->done && $item->done->aksi == 'a') {
+                            $ver = 'Diterima';
+                            $clr = 'green';
+                        } else {
+                            $ver = 'Diproses';
+                            $clr = 'blue';
+                        }
+                    }
+                    @endphp
+                    <tr>
                     <td>{{helper()->tanggalIndo($item->tanggal)}}</td>
                     <td>{{$item->tahun}}</td>
                     <td>{{$item->kecamatan->nama_kecamatan}}</td>
@@ -57,22 +70,54 @@ Usulan
                     <td>{{$item->kegiatan}}</td>
                     <td>{{$item->jumlah}} {{$item->satuan}}</td>
                     <td>{{helper()->rupiah($item->harga_satuan * $item->jumlah)}}</td>
-                    <td>{{$item->pagu}}</td>
                     <td>{{$item->sumber_dana}}</td>
                     <td>{{$item->lokasi}}</td>
                     <td>
-                        <p style="color: green; cursor: help;" title="Telah Diverifikasi"><b>Kecamatan</b></p>
-                        <p>OPD</p>
-                        <p>Kabupaten</p>
+                        <a href="javascript:void(0)" onclick="trace({{$item->id}})" style="color: {{$clr}}">{{$ver}}</a>
                     </td>
-                	</tr>
-                	@endforeach
+                        
+                    </tr>
+                    @endforeach
                 </tbody>
               </table>
             </div>
             <!-- /.box-body -->
           </div>
 	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalTracking" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Tracking Usulan</h4>
+        </div>
+        <div class="modal-body">
+
+            <table class="table table-bordered" style="width: 100%">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Waktu</th>
+                        <th>User</th>
+                        <th>Level</th>
+                        <th>Verifikasi</th>
+                        <th>Keterangan</th>
+                    </tr>
+                </thead>
+                <tbody id="modalTrackingTableBody">
+
+                </tbody>
+            </table>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
 </div>
 @endsection
 
@@ -90,5 +135,40 @@ function hapus(id) {
 	  window.location = "{{base_url()}}public/aksihapus/" + id;
 	});
 }
+</script>
+
+<script type="text/javascript">
+    function trace(id) {
+        $.ajax({
+          type: "GET",
+          url: `{{base_url()}}usulan/trace/${id}`,
+          data: {
+            
+          },
+          success: function(data, textStatus, xhr ) {
+            $("#modalTrackingTableBody").html(data);
+
+            $("#modalTracking").modal();
+          },
+          error: function(xhr, textStatus, errorThrown) {
+            console.table([
+              {
+                kolom: 'xhr',
+                data: xhr
+              },
+              {
+                kolom: 'textStatus',
+                data: textStatus
+              },
+              {
+                kolom: 'errorThrown',
+                data: errorThrown
+              }
+            ]);
+
+            swal('ERROR !!!', 'See console !!!', 'error');
+          }
+        });
+    }
 </script>
 @endsection

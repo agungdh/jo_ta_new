@@ -1,1 +1,1 @@
-<li><a href="{{ base_url() }}agenadmin"><i class="fa fa-home"></i> Agen</a></li>
+<li><a href="{{ base_url() }}home"><i class="fa fa-home"></i> Home</a></li>
