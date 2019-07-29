@@ -9,11 +9,11 @@ if(ci()->session->login) {
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>JUDUL</title>
+  <title>E-Musrenbang Pringsewu</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-  <link id="favicon" rel="icon" type="image/x-icon" href="{{base_url()}}assets/favicon/favicon.ico">
+  <link id="favicon" rel="icon" type="image/x-icon" href="{{base_url()}}assets/emusrenbang.ico">
 
   <link rel="stylesheet" href="{{base_url()}}assets/AdminLTE/bower_components/bootstrap/dist/css/bootstrap.min.css">
   <!-- Font Awesome -->
@@ -96,9 +96,9 @@ if(ci()->session->login) {
     <!-- Logo -->
     <a href="{{ base_url() }}" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>JUDUL SHORTER</b></span>
+      <span class="logo-mini"><b>MRBP</b></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>JUDUL SHORT</b></span>
+      <span class="logo-lg"><b>E-Musrenbang Pringsewu</b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -122,7 +122,7 @@ if(ci()->session->login) {
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="{{base_url()}}assets/favicon/favicon.png" class="img-circle" alt="User Image">
+                <img src="{{base_url()}}assets/emusrenbang.png" class="img-circle" alt="User Image">
 
                 <p>
                     <small>{{$userData->username}}</small>
@@ -206,7 +206,7 @@ if(ci()->session->login) {
 
   <div class="bgpsw">
     <footer class="main-footer" style="opacity: 0.85">
-      <strong>Copyright &copy; {{ date('Y') }} <a href="{{base_url()}}">JUDUL SHORT</a>.</strong> All rights
+      <strong>Copyright &copy; {{ date('Y') }} <a href="{{base_url()}}">E-Musrenbang Pringsewu</a>.</strong> All rights
       reserved.
     </footer>
   </div>
