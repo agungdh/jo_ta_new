@@ -3,7 +3,7 @@
 -- Host: localhost	Database: jo_ta
 -- ------------------------------------------------------
 -- Server version 	5.5.5-10.3.13-MariaDB-2
--- Date: Fri, 26 Jul 2019 00:21:22 +0700
+-- Date: Tue, 30 Jul 2019 00:30:00 +0700
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -79,7 +79,7 @@ CREATE TABLE `usulan` (
   CONSTRAINT `usulan_ibfk_1` FOREIGN KEY (`id_opd`) REFERENCES `opd` (`id`),
   CONSTRAINT `usulan_ibfk_5` FOREIGN KEY (`id_kecamatan`) REFERENCES `kecamatan` (`id`),
   CONSTRAINT `usulan_ibfk_6` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -89,12 +89,12 @@ CREATE TABLE `usulan` (
 LOCK TABLES `usulan` WRITE;
 /*!40000 ALTER TABLE `usulan` DISABLE KEYS */;
 SET autocommit=0;
-INSERT INTO `usulan` VALUES (11,4,'2019-07-25','2019','1810020',3,'test','Kotak','test 123','Dana Kas',233000,2),(12,4,'2019-07-25','2019','1810020',3,'test','Kotak','test 123','Dana Kas',233000,2);
+INSERT INTO `usulan` VALUES (11,4,'2019-07-25','2019','1810020',3,'test','Kotak','test 123','Dana Kas',233000,2),(12,4,'2019-07-25','2019','1810020',3,'test','Kotak','test 123','Dana Kas',233000,2),(13,4,'2019-07-29','2019','1810020',3,'daf asdf as','Kotak','dsf sdaf asdf',NULL,2444,24);
 /*!40000 ALTER TABLE `usulan` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
 
--- Dumped table `usulan` with 2 row(s)
+-- Dumped table `usulan` with 3 row(s)
 --
 
 --
@@ -160,7 +160,7 @@ CREATE TABLE `user` (
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 SET autocommit=0;
-INSERT INTO `user` VALUES (2,'opkab','$2y$10$Fcuk6eH24UXPkXD172QSqO5cnTUHWwY5XURPmvqaPpuFHp.lONaJi','opkab','Nama OP KAB',NULL,NULL),(3,'opdinkes','$2y$10$9ymCEthdi73IcwWoy6e4reU0JW3jk0dW.2YRMPbjgYMyFgI0qXySy','opopd','Nama OP OPD DINKES',3,NULL),(4,'opambarawa','$2y$10$JbE/R0In4DjYu184Pca0nOWAKOkOxPGJV7AQc/1ewkkz3ZI0L9snu','opkec','Nama OP Kec Ambarawa',NULL,'1810020'),(7,'oppardasuka','$2y$10$g5igL7uYI/ZKWOH5bEdU.e4XXSTRf0i05YJ1BsLDEV.4wrXzvo7x6','opkec','Nama oppardasuka',NULL,'1810010');
+INSERT INTO `user` VALUES (2,'opkab','$2y$10$Fcuk6eH24UXPkXD172QSqO5cnTUHWwY5XURPmvqaPpuFHp.lONaJi','opkab','Nama OP KAB',NULL,NULL),(3,'opdinkes','$2y$10$9ymCEthdi73IcwWoy6e4reU0JW3jk0dW.2YRMPbjgYMyFgI0qXySy','opopd','Nama OP OPD DINKES',3,NULL),(4,'opambarawa','$2y$10$fUpss95f1nrM94b1.RtE7ORtpWT1kuIOTFbWIbMLXJb8SZ6spKXMq','opkec','Nama OP Kec Ambarawa',NULL,'1810020'),(7,'oppardasuka','$2y$10$g5igL7uYI/ZKWOH5bEdU.e4XXSTRf0i05YJ1BsLDEV.4wrXzvo7x6','opkec','Nama oppardasuka',NULL,'1810010');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -295,4 +295,4 @@ COMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on: Fri, 26 Jul 2019 00:21:23 +0700
+-- Dump completed on: Tue, 30 Jul 2019 00:30:02 +0700

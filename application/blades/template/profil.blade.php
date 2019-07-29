@@ -20,20 +20,46 @@ Profil
 				
 				<div class="box-body">
 
-					<div class="col-md-6">
+					<div class="col-md-4">
 						<div class="form-group has-feedback">
-							<label>Karyawan</label>
+							<label>Username</label>
 							<div>
-								<input type="text" disabled class="form-control" value="{{$user->karyawan->nik}} - {{$user->karyawan->nama}}">
+								<input type="text" disabled class="form-control" value="{{$user->username}}">
 							</div>
 						</div>
 					</div>
 
-					<div class="col-md-6">
+					<div class="col-md-4">
+						<div class="form-group has-feedback">
+							<label>Nama</label>
+							<div>
+								<input type="text" disabled class="form-control" value="{{$user->nama}}">
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-4">
 						<div class="form-group has-feedback">
 							<label>Level</label>
 							<div>
-								<input type="text" disabled class="form-control" value="{{$user->level == 'b' ? 'Boss' : 'Operator'}}">
+								@php
+								switch ($user->level) {
+									case 'opkab':
+										$level = 'Kabupaten';
+										break;
+									case 'opopd':
+										$level = 'OPD';
+										break;
+									case 'opkec':
+										$level = 'Kecamatan';
+										break;
+									
+									default:
+										$level = 'ERROR !!!';
+										break;
+								}
+								@endphp
+								<input type="text" disabled class="form-control" value="{{$level}}">
 							</div>
 						</div>
 					</div>
