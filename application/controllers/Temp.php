@@ -6,13 +6,18 @@ use Illuminate\Database\Capsule\Manager as DB;
 class Temp extends CI_Controller {
 	public function index()
 	{
-		$datas = DB::select("SELECT p.id provinsi, ka.id kabupaten, ke.id kecamatan, d.id desa
-						FROM provinsi p, kabupaten ka, kecamatan ke, desa d
-						WHERE d.kecamatan_id = ke.id
-						AND ke.kabupaten_id = ka.id
+		$datas = DB::select("SELECT p.id provinsi, ka.id kabupaten, ke.id kecamatan
+						FROM provinsi p, kabupaten ka, kecamatan ke
+						WHERE ke.kabupaten_id = ka.id
 						AND ka.provinsi_id = p.id
+						AND ka.id = 1810
 						");
 
-		dd($datas);
+		$deleteID = [];
+		foreach ($datas as $data) {
+			$deleteID[] = $data->kecamatan;
+		}
+
+		DB::table('kecamatan')->whereNotIn('id', $deleteID)->delete();
 	}
 }
