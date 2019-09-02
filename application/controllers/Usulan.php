@@ -26,9 +26,8 @@ class Usulan extends CI_Controller {
 	public function trace($id)
 	{
 		$usulan = Usulan_model::find($id);
-		$trackings = $usulan->trackings;
 		
-		return blade('usulan.ajaxtracking', compact(['usulan', 'trackings']));
+		return blade('usulan.ajaxtracking', compact(['usulan']));
 	}
 
 	public function trtableusulan($id)
@@ -40,24 +39,19 @@ class Usulan extends CI_Controller {
 
 	public function aksiverify()
 	{
-		$requestData = $this->input->post();
-		$requestData['user_level'] = getUserData()->level;
-		$requestData['id_user'] = getUserData()->id;
-		$requestData['waktu'] = date('Y-m-d H:i:s');
+		$requestData['id_user_verifikasi'] = getUserData()->id;
+		$requestData['waktu_verifikasi'] = date('Y-m-d H:i:s');
+		$requestData['aksi_verifikasi'] = $this->input->post('aksi');
+		$requestData['keterangan_verifikasi'] = $this->input->post('keterangan');
+		$requestData['sumber_dana'] = $this->input->post('sumber_dana');
 
-		if (getUserData()->level == 'opkab') {
-			Usulan_model::where('id', $requestData['id_usulan'])->update(['sumber_dana' => $requestData['sumber_dana']]);
-		}
-
-		unset($requestData['sumber_dana']);
-		
-		Tracking_model::insert($requestData);
+		Usulan_model::where('id', $this->input->post('id_usulan'))->update($requestData);
 		
 		$this->session->set_flashdata(
 			'alert',
 			[
 				'title' => 'Sukses',
-				'message' => 'Tambah Data Berhasil !!!',
+				'message' => 'Verifikasi Data Berhasil !!!',
 				'class' => 'success',
 			]
 		);

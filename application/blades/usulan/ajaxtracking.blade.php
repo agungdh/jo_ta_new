@@ -1,9 +1,5 @@
 @php
-$i = 1;
-@endphp
-@foreach($trackings as $item)
-@php
-if ($item->aksi == 'a') {
+if ($usulan->aksi_verifikasi == 'a') {
     $ver = 'Diterima';
     $clr = 'green';
 } else {
@@ -12,26 +8,9 @@ if ($item->aksi == 'a') {
 }
 @endphp
 <tr>
-	<td>{{$i}}</td>
-    <td>{{helper()->tanggalWaktuIndo($item->waktu)}}</td>
-    <td>{{$item->user->nama}}</td>
-    @switch($item->user->level)
-    	@case('opkec')
-    	<td>Kecamatan</td>
-    	@break
-
-    	@case('opopd')
-    	<td>OPD</td>
-    	@break
-    	
-    	@case('opkab')
-    	<td>Kabupaten</td>
-    	@break
-    @endswitch
+    <td>{{helper()->tanggalWaktuIndo($usulan->waktu_verifikasi)}}</td>
+    <td>{{$usulan->sumber_dana}}</td>
+    <td>{{$usulan->userVerifikasi->nama}}</td>
     <td><a href="javascript:void(0)" style="color: {{$clr}}">{{$ver}}</a></td>
-    <td>{{$item->keterangan}}</td>
+    <td>{{$usulan->keterangan_verifikasi}}</td>
 </tr>
-@php
-$i++;
-@endphp
-@endforeach

@@ -7,6 +7,10 @@ class Usulan extends Eloquent {
     protected $table = "usulan";
     public $timestamps = false;
 
+    public function userVerifikasi(){
+        return $this->belongsTo('application\eloquents\User', 'id_user_verifikasi');
+    }
+
     public function opd(){
     	return $this->belongsTo('application\eloquents\Opd', 'id_opd');
     }

@@ -5,6 +5,5 @@
 <td>{{$usulan->kegiatan}}</td>
 <td>{{$usulan->jumlah}} {{$usulan->satuan}}</td>
 <td>{{helper()->rupiah($usulan->harga_satuan * $usulan->jumlah)}}</td>
-<td>{{$usulan->sumber_dana}}</td>
 <td>{{$usulan->lokasi}}</td>
 <input type="hidden" name="id_usulan" value="{{$usulan->id}}">
