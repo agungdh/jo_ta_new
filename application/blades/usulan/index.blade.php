@@ -123,9 +123,9 @@ Usulan
                 <thead>
                     <tr>
                      <th>Waktu</th>
-                     <th>Sumber Dana</th>
                      <th>User</th>
                      <th>Verifikasi</th>
+                     <th>Sumber Dana</th>
                      <th>Keterangan</th>
                     </tr>
                 </thead>
@@ -232,7 +232,7 @@ function hapus(id) {
 <script type="text/javascript">
     function trace(id) {
         if (id == null) {
-            swal('ERROR !!!', 'Usulan sedang diproses...', 'error');
+            swal('PERHATIAN !!!', 'Usulan sedang diproses...', 'info');
         } else {
             $.ajax({
               type: "GET",

@@ -16,7 +16,6 @@
 	        <th>Kegiatan</th>
 	        <th>Jumlah</th>
 	        <th>Biaya</th>
-	        <th>Sumber Dana</th>
 	        <th>Lokasi</th>
 	        <th>Verifikasi</th>
 	    </tr>
@@ -28,20 +27,6 @@
 		@foreach($usulans as $item)
 		<tr>
 			<td>{{$i++}}</td>
-			@php
-            if ($item->rejected) {
-                $ver = 'Ditolak';
-                $clr = 'red';
-            } else {
-                if ($item->done && $item->done->aksi == 'a') {
-                    $ver = 'Diterima';
-                    $clr = 'green';
-                } else {
-                    $ver = 'Diproses';
-                    $clr = 'blue';
-                }
-            }
-            @endphp
             <td>{{helper()->tanggalIndo($item->tanggal)}}</td>
             <td>{{$item->tahun}}</td>
             <td>{{$item->kecamatan->nama_kecamatan}}</td>
@@ -49,9 +34,15 @@
             <td>{{$item->kegiatan}}</td>
             <td>{{$item->jumlah}} {{$item->satuan}}</td>
             <td>{{helper()->rupiah($item->harga_satuan * $item->jumlah)}}</td>
-            <td>{{$item->sumber_dana}}</td>
             <td>{{$item->lokasi}}</td>
-            <td>{{$ver}}</td>
+            
+            @if($item->aksi_verifikasi == null)
+            <td>Diproses</td>
+            @elseif($item->aksi_verifikasi == 'a')
+            <td>Diterima</td>
+            @elseif($item->aksi_verifikasi == 'd')
+            <td>Ditolak</td>
+            @endif
                 
         </tr>
         @endforeach

@@ -3,7 +3,7 @@
 -- Host: localhost	Database: jo_ta
 -- ------------------------------------------------------
 -- Server version 	5.5.5-10.3.17-MariaDB-0ubuntu0.19.04.1
--- Date: Mon, 02 Sep 2019 08:42:08 +0700
+-- Date: Mon, 02 Sep 2019 09:15:35 +0700
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -296,4 +296,4 @@ COMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on: Mon, 02 Sep 2019 08:42:08 +0700
+-- Dump completed on: Mon, 02 Sep 2019 09:15:35 +0700
