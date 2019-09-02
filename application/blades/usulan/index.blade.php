@@ -90,11 +90,13 @@ Usulan
                             <button type="button" class="btn btn-{{$verifyCheckBtnClass}} btn-sm" onclick="opVerify({{ $verifyCheckID }})"><i class="glyphicon glyphicon-check"></i> Verifikasi</button>
                             @endif
 
+                            @if($item->id_user == getUserData()->id)
                             <a class="btn btn-primary btn-sm" href="{{base_url()}}usulan/ubah/{{$item->id}}">
-        	                  <i class="glyphicon glyphicon-pencil"></i> Ubah
-        	                </a>
+          	                  <i class="glyphicon glyphicon-pencil"></i> Ubah
+          	                </a>
 
-	                 		<button type="button" class="btn btn-danger btn-sm" onclick="hapus('{{ $item->id }}')"><i class="glyphicon glyphicon-trash"></i> Hapus</button>
+      	                 		<button type="button" class="btn btn-danger btn-sm" onclick="hapus('{{ $item->id }}')"><i class="glyphicon glyphicon-trash"></i> Hapus</button>
+                            @endif
                 		</td>
                 	</tr>
                 	@endforeach

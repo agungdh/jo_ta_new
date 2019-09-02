@@ -44,8 +44,7 @@ class Welcome extends CI_Controller {
 	public function trace($id)
 	{
 		$usulan = Usulan_model::find($id);
-		$trackings = $usulan->trackings;
 		
-		return blade('usulan.ajaxtracking', compact(['usulan', 'trackings']));
+		return blade('usulan.ajaxtracking', compact(['usulan']));
 	}
 }

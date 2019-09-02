@@ -3,7 +3,7 @@
 -- Host: localhost	Database: jo_ta
 -- ------------------------------------------------------
 -- Server version 	5.5.5-10.3.17-MariaDB-0ubuntu0.19.04.1
--- Date: Mon, 02 Sep 2019 09:15:35 +0700
+-- Date: Mon, 02 Sep 2019 09:28:53 +0700
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -15,42 +15,6 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Table structure for table `tracking`
---
-
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tracking` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_usulan` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL,
-  `aksi` enum('a','d') NOT NULL,
-  `waktu` datetime NOT NULL,
-  `user_level` enum('opkab','opopd','opkec') NOT NULL,
-  `keterangan` text DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_usulan` (`id_usulan`),
-  KEY `id_user` (`id_user`),
-  CONSTRAINT `tracking_ibfk_1` FOREIGN KEY (`id_usulan`) REFERENCES `usulan` (`id`),
-  CONSTRAINT `tracking_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tracking`
---
-
-LOCK TABLES `tracking` WRITE;
-/*!40000 ALTER TABLE `tracking` DISABLE KEYS */;
-SET autocommit=0;
-/*!40000 ALTER TABLE `tracking` ENABLE KEYS */;
-UNLOCK TABLES;
-COMMIT;
-
--- Dumped table `tracking` with 0 row(s)
---
 
 --
 -- Table structure for table `usulan`
@@ -82,7 +46,7 @@ CREATE TABLE `usulan` (
   CONSTRAINT `usulan_ibfk_1` FOREIGN KEY (`id_opd`) REFERENCES `opd` (`id`),
   CONSTRAINT `usulan_ibfk_5` FOREIGN KEY (`id_kecamatan`) REFERENCES `kecamatan` (`id`),
   CONSTRAINT `usulan_ibfk_6` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -92,12 +56,12 @@ CREATE TABLE `usulan` (
 LOCK TABLES `usulan` WRITE;
 /*!40000 ALTER TABLE `usulan` DISABLE KEYS */;
 SET autocommit=0;
-INSERT INTO `usulan` VALUES (15,4,'2019-09-02','2019','1810020',3,'Medkit','Pkaet','Disitu loh',1000000,20,'aa',3,'d','2019-09-02 08:18:52','qq'),(16,4,'2019-09-21','2011','1810020',3,'Ntahlah aku juga gak tau','Piringan','Neng ndi yoo',20000,3400,'',3,'a','2019-09-02 08:20:19',''),(17,4,'2019-09-02','2011','1810020',3,'sadfsadfasdf','Piringan','asdfasdf',123414,124124,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `usulan` VALUES (15,4,'2019-09-02','2019','1810020',3,'Medkit','Pkaet','Disitu loh',1000000,20,'aa',3,'d','2019-09-02 08:18:52','qq'),(16,4,'2019-09-21','2011','1810020',3,'Ntahlah aku juga gak tau','Piringan','Neng ndi yoo',20000,3400,'',3,'a','2019-09-02 08:20:19',''),(17,4,'2019-09-04','2011','1810020',3,'sadfsadfasdf','Piringan','asdfasdf',123414,124124,'1241414',3,'a','2019-09-02 09:16:23','124'),(18,4,'2019-09-07','2019','1810020',3,'afafa','fafaf','fsafa',2421412,41,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `usulan` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
 
--- Dumped table `usulan` with 3 row(s)
+-- Dumped table `usulan` with 4 row(s)
 --
 
 --
@@ -296,4 +260,4 @@ COMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on: Mon, 02 Sep 2019 09:15:35 +0700
+-- Dump completed on: Mon, 02 Sep 2019 09:28:53 +0700
