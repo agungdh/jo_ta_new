@@ -1,1 +1,0 @@
-<li><a href="{{ base_url() }}formulatarif"><i class="fa fa-home"></i> Formula Tarif</a></li>

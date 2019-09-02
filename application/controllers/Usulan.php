@@ -180,7 +180,6 @@ class Usulan extends CI_Controller {
 	public function aksihapus($id)
 	{
 		try {
-			Tracking_model::where('id_usulan', $id)->delete();
 			Usulan_model::where('id', $id)->delete();
 		} catch (QueryException $exception) {
             $this->session->set_flashdata(

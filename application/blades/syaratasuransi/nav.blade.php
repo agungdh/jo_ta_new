@@ -1,1 +1,0 @@
-<li><a href="{{ base_url() }}syaratasuransi"><i class="fa fa-home"></i> Syarat Asuransi</a></li>

@@ -86,7 +86,7 @@ class Helper extends \agungdh\Pustaka
 		$db->addConnection([
 			"driver"    => "mysql",
 			"host" => 'localhost',
-			"database" => 'jo_ta',
+			"database" => 'jo_ta_new',
 			"username" => 'agungdh',
 			"password" => 'agungdh',
 		]);

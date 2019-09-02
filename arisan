@@ -27,7 +27,7 @@ class arisan extends CLI
         elseif ($options->getOpt('dumpdb'))
         {
             $this->notice("Preparing ...\n");
-            $database = 'jo_ta';
+            $database = 'jo_ta_new';
             $user = 'agungdh';
             $pass = 'agungdh';
             $host = 'localhost';
@@ -58,7 +58,7 @@ class arisan extends CLI
         elseif ($options->getOpt('importdb'))
         {
             $this->info("Preparing ...\n");
-            $database = 'jo_ta';
+            $database = 'jo_ta_new';
             $user = 'agungdh';
             $pass = 'agungdh';
             $host = 'localhost';

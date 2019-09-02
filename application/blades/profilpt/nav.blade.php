@@ -1,1 +1,0 @@
-<li><a href="{{ base_url() }}profilpt"><i class="fa fa-home"></i> Profil</a></li>

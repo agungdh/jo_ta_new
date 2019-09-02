@@ -1,1 +1,0 @@
-<li><a href="{{ base_url() }}"><i class="fa fa-home"></i> Nasabah Tanya/Jawab</a></li>
