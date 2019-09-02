@@ -41,7 +41,6 @@ Usulan
                         <th>Kegiatan</th>
                         <th>Jumlah</th>
                         <th>Biaya</th>
-                        <th>Sumber Dana</th>
                         <th>Lokasi</th>
                         <th>Verifikasi</th>
 	                </tr>
@@ -49,16 +48,16 @@ Usulan
                 <tbody>
                     @foreach($usulans as $item)
                     @php
-                    if ($item->rejected) {
-                        $ver = 'Ditolak';
-                        $clr = 'red';
+                    if ($item->aksi_verifikasi == null) {
+                        $ver = 'Diproses';
+                        $clr = 'blue';
                     } else {
-                        if ($item->done && $item->done->aksi == 'a') {
+                        if ($item->aksi_verifikasi == 'a') {
                             $ver = 'Diterima';
                             $clr = 'green';
                         } else {
-                            $ver = 'Diproses';
-                            $clr = 'blue';
+                            $ver = 'Ditolak';
+                            $clr = 'red';
                         }
                     }
                     @endphp
@@ -70,10 +69,9 @@ Usulan
                     <td>{{$item->kegiatan}}</td>
                     <td>{{$item->jumlah}} {{$item->satuan}}</td>
                     <td>{{helper()->rupiah($item->harga_satuan * $item->jumlah)}}</td>
-                    <td>{{$item->sumber_dana}}</td>
                     <td>{{$item->lokasi}}</td>
                     <td>
-                        <a href="javascript:void(0)" onclick="trace({{$item->id}})" style="color: {{$clr}}">{{$ver}}</a>
+                        <a href="javascript:void(0)" onclick="trace({{$item->id_user_verifikasi != null ? $item->id : 'null'}})" style="color: {{$clr}}">{{$ver}}</a>
                     </td>
                         
                     </tr>
@@ -95,19 +93,18 @@ Usulan
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Tracking Usulan</h4>
+          <h4 class="modal-title">Verifikasi Usulan</h4>
         </div>
         <div class="modal-body">
 
             <table class="table table-bordered" style="width: 100%">
                 <thead>
                     <tr>
-                        <th>No</th>
-                        <th>Waktu</th>
-                        <th>User</th>
-                        <th>Level</th>
-                        <th>Verifikasi</th>
-                        <th>Keterangan</th>
+                     <th>Waktu</th>
+                     <th>User</th>
+                     <th>Verifikasi</th>
+                     <th>Sumber Dana</th>
+                     <th>Keterangan</th>
                     </tr>
                 </thead>
                 <tbody id="modalTrackingTableBody">
@@ -142,36 +139,40 @@ function hapus(id) {
 
 <script type="text/javascript">
     function trace(id) {
-        $.ajax({
-          type: "GET",
-          url: `{{base_url()}}welcome/trace/${id}`,
-          data: {
-            
-          },
-          success: function(data, textStatus, xhr ) {
-            $("#modalTrackingTableBody").html(data);
+        if (id == null) {
+            swal('PERHATIAN !!!', 'Usulan sedang diproses...', 'info');
+        } else {
+            $.ajax({
+              type: "GET",
+              url: `{{base_url()}}usulan/trace/${id}`,
+              data: {
+                
+              },
+              success: function(data, textStatus, xhr ) {
+                $("#modalTrackingTableBody").html(data);
 
-            $("#modalTracking").modal();
-          },
-          error: function(xhr, textStatus, errorThrown) {
-            console.table([
-              {
-                kolom: 'xhr',
-                data: xhr
+                $("#modalTracking").modal();
               },
-              {
-                kolom: 'textStatus',
-                data: textStatus
-              },
-              {
-                kolom: 'errorThrown',
-                data: errorThrown
+              error: function(xhr, textStatus, errorThrown) {
+                console.table([
+                  {
+                    kolom: 'xhr',
+                    data: xhr
+                  },
+                  {
+                    kolom: 'textStatus',
+                    data: textStatus
+                  },
+                  {
+                    kolom: 'errorThrown',
+                    data: errorThrown
+                  }
+                ]);
+
+                swal('ERROR !!!', 'See console !!!', 'error');
               }
-            ]);
-
-            swal('ERROR !!!', 'See console !!!', 'error');
-          }
-        });
+            });
+        }
     }
 </script>
 @endsection
