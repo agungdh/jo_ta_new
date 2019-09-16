@@ -90,7 +90,7 @@ Usulan
                             <button type="button" class="btn btn-{{$verifyCheckBtnClass}} btn-sm" onclick="opVerify({{ $verifyCheckID }})"><i class="glyphicon glyphicon-check"></i> Verifikasi</button>
                             @endif
 
-                            @if($item->id_user == getUserData()->id)
+                            @if($item->id_user == getUserData()->id || getUserData()->level == 'opkab')
                             <a class="btn btn-primary btn-sm" href="{{base_url()}}usulan/ubah/{{$item->id}}">
           	                  <i class="glyphicon glyphicon-pencil"></i> Ubah
           	                </a>
